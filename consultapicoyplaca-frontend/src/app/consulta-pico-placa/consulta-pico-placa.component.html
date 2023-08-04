@@ -1,0 +1,108 @@
+<div class="container-fluid">
+
+    <div class="row">
+
+        <div class="title">
+            <h1>
+                CONSULTA PICO Y PLACA
+            </h1>
+        </div>
+
+        <div class="borderTitle"></div>
+
+        <div class="card innerBody">
+            <div class="row">
+                <form id="NgForm" #form="ngForm" class="col" align="center" (ngSubmit)="AbleCheckVehicleDateTime()">
+                    <div class="form">
+                        <div class="form-item">
+                            <label class="form-item-label" for="licensePlate">
+                                <b> Placa del Vehículo: </b>
+                            </label>
+                            <input class="form-control form-item-input" #licensePlate="ngModel" type="text" id="licensePlate" placeholder="AAA-000 o AAA-0000" name="licensePlate" [(ngModel)]="vehicleDateTimeFromForm.licensePlate" pattern="^[A-Z]{3}[-][0-9]{3,4}$" required>
+                            <small *ngIf="(beenSubmitted || licensePlate.touched) && (licensePlate.errors && licensePlate.errors?.['pattern'])">Escriba una placa válida.</small>
+                            <small *ngIf="(beenSubmitted || licensePlate.touched) && (licensePlate.errors && licensePlate.errors?.['required'])">Este campo es obligatorio.</small>
+                        </div>
+    
+                        <div class="form-item">
+                            <label class="form-item-label" for="date">
+                                <b> Fecha: </b>
+                            </label>
+                            <input class="form-control form-item-input" #date="ngModel" type="date" id="date" name="date" [(ngModel)]="vehicleDateTimeFromForm.date" pattern="^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$" required>
+                            <small *ngIf="(beenSubmitted || date.touched) && (date.errors && date.errors?.['pattern'])">Escriba una fecha válida.</small>
+                            <small *ngIf="(beenSubmitted || date.touched) && (date.errors && date.errors?.['required'])">Este campo es obligatorio.</small>
+                        </div>
+            
+                        <div class="form-item">
+                            <label class="form-item-label" for="time">
+                                <b> Hora: </b>
+                            </label>
+                            <input class="form-control form-item-input" #time="ngModel" type="time" id="time" name="time" [(ngModel)]="vehicleDateTimeFromForm.time" pattern="^(2[0-3]|[01]?[0-9]):([0-5]?[0-9])$" required>
+                            <small *ngIf="(beenSubmitted || time.touched) && (time.errors && time.errors?.['pattern'])">Escriba una fecha válida.</small>
+                            <small *ngIf="(beenSubmitted || time.touched) && (time.errors && time.errors?.['required'])">Este campo es obligatorio.</small>
+                        </div>
+                    </div>
+
+                    <div class="submit">
+                        <button class="btn btn-secondary" type="submit"> Consultar </button>
+                    </div>
+                </form>
+                <div class="col" align="center">
+                    <div class="row description display">
+                        <p class="label">
+                            <b> ¿Cómo Usar? </b>
+                        </p>
+                    </div>
+                    <div class="row card description data" id="Information">
+                        <div class="card display-item">
+                            <p>
+                                Ingrese la placa del vehículo, la fecha y hora en la cuál desea comprobar si puede circular dentro de la zona delimitada por el Pico y Placa en la ciudad de Quito.
+                                <br>
+                                <br>
+                                Finalmente, haga clic en el botón <span class="btn btn-secondary badge" (click)="openModal()">Consultar</span> para obtener su resultado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card innerBody" align="center">
+            <p class="map-label">
+                <b> ZONA DE PICO Y PLACA </b>
+            </p>
+            <img src="..\assets\zona-pico-y-placa-quito.png" alt="Zona de Pico y Placa Quito"/>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="returnMessage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div *ngIf="isAble" class="modal-header" style="background-color: red">
+          <h5 class="modal-title" id="exampleModalLabel">Resultado</h5>
+          <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <p>
+                El vehiculo con placa: {{vehicleDateTimeFromForm.licensePlate}}
+                <br>
+                a la fecha: {{vehicleDateTimeFromForm.date | date: 'dd/MM/yyyy'}} 
+                <br>
+                y hora {{vehicleDateTimeFromForm.time}}
+                <br> <b> {{ resultMessage.substring(0,2) | uppercase }} </b> {{ resultMessage.substring(2) }}.
+            </p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closeModal()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>

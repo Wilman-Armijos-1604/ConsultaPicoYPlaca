@@ -11,6 +11,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import org.springframework.stereotype.Service;
 
 /**
@@ -21,8 +22,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class VehicleDateTimeService {
     
-    public String CheckAbleVehicleDateTime(VehicleDateTime vehicleDateTime) {
-        String AbleCheckmessage;
+    public HashMap<String, String> CheckAbleVehicleDateTime(VehicleDateTime vehicleDateTime) {
+        HashMap<String,String> ableCheckMessage = new HashMap<>();
         
         String licensePlate = vehicleDateTime.getLicensePlate();
         LocalDateTime parsedDateTime = LocalDateTime.parse(vehicleDateTime.getDateTime(), DateTimeFormatter.ISO_DATE_TIME);
@@ -36,12 +37,12 @@ public class VehicleDateTimeService {
         boolean testTimeNight = (time.isAfter(VehicleDateTimeRestrictionsTable.NIGHT_RESTRICTION_START) && time.isBefore(VehicleDateTimeRestrictionsTable.NIGHT_RESTRICTION_END));
         
         if (testDate && (testTimeDay || testTimeNight)) {
-            AbleCheckmessage = " no puede circular ";
+            ableCheckMessage.put("isNotAble", "NO puede circular ");
         } else {
-            AbleCheckmessage = " puede circular ";
+            ableCheckMessage.put("isAble", "SI puede circular ");
         }
         
-        return AbleCheckmessage;
+        return ableCheckMessage;
     }
 
 }
