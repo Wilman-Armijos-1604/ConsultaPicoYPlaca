@@ -32,10 +32,16 @@ public class VehicleDateTimeService {
         DayOfWeek dayOfWeekTest = parsedDateTime.getDayOfWeek();
         LocalTime time = parsedDateTime.toLocalTime();
         
+        // Use of Service for checking "Pico y Placa" restrictions
+
+        // Checking if license plate has restriction on date based on last digit
         boolean testDate = dayOfWeekTest==VehicleDateTimeRestrictionsTable.NUMBER_DATE_RESTRICTION.get(lastDigit);
+        // Checking if license plate has restriction on Day time span
         boolean testTimeDay = (time.isAfter(VehicleDateTimeRestrictionsTable.DAY_RESTRICTION_START) && time.isBefore(VehicleDateTimeRestrictionsTable.DAY_RESTRICTION_END));
+        // Checking if license plate has restriction on Night time span
         boolean testTimeNight = (time.isAfter(VehicleDateTimeRestrictionsTable.NIGHT_RESTRICTION_START) && time.isBefore(VehicleDateTimeRestrictionsTable.NIGHT_RESTRICTION_END));
         
+        // Conditions for checking vechicle availability on "Pico y Placa" Day - Hour
         if (testDate && (testTimeDay || testTimeNight)) {
             ableCheckMessage.put("isNotAble", "NO puede circular ");
         } else {

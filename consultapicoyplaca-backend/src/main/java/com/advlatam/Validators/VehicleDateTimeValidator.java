@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class VehicleDateTimeValidator implements IVehicleDateTimeValidator {
     
+    // License plate format validation (AAA-000 and AAA-0000)
     private final String LicensePlateFormat = "^[A-Z]{3}[-]\\d{3,4}$";
 
     @Override
@@ -30,38 +31,48 @@ public class VehicleDateTimeValidator implements IVehicleDateTimeValidator {
         String licensePlateValidationMessage = this.validateLicensePlate(vehicleDateTime.getLicensePlate());
         String dateTimeValidationMessage = this.validateDateTime(vehicleDateTime.getDateTime());
         
+        // Validation of License plate
         if (!licensePlateValidationMessage.isEmpty()) {
             errorsList.put("LicensePlate", licensePlateValidationMessage);
         }
+        // Validation of Date and Time
         if (!dateTimeValidationMessage.isEmpty()) {
             errorsList.put("DateTime", dateTimeValidationMessage);
         }
                 
+        // Map of validation (Empty if no errors found, One or two values if any field has validation errors)
         return errorsList;
     }
 
+    // Validation of License Plate
     @Override
     public String validateLicensePlate(String licensePlate) {
         String licensePlateErrorMessage = "";
+        // Empty validation of License Plate value
         if (licensePlate.trim().isEmpty()) {
             licensePlateErrorMessage = "Este campo es obligatorio.";
-        } else if (!Pattern.matches(this.LicensePlateFormat, licensePlate)) {
-            licensePlateErrorMessage = "Por favor, introduzca un número de placa válido (AAA-0000, AAA-000).";
+        } 
+        // Acceptable format validation of License Plate value 
+        else if (!Pattern.matches(this.LicensePlateFormat, licensePlate)) {
+            licensePlateErrorMessage = "Escriba una placa válida.";
         }
         return licensePlateErrorMessage;
     }
 
+    // Validation of Date and Time
     @Override
     public String validateDateTime(String dateTime) {
         String dateTimeErrorMessage = "";
         
         try {
+            // Acceptable and valid format of Date from String
             LocalDateTime parsedDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ISO_DATE_TIME);
+            // Checking if input date and time is at least current date and time
             if (parsedDateTime.isBefore(LocalDateTime.now())) {
-                dateTimeErrorMessage = "Por facor, selecciona una fecha y hora posterior a la actual.";
+                dateTimeErrorMessage = "Escriba una fecha y hora válida.";
             }
         } catch (Exception e) {
-            dateTimeErrorMessage = "Por favor, seleccione una fecha y hora.";
+            dateTimeErrorMessage = "Este campo es obligatorio.";
         }
         
         return dateTimeErrorMessage;

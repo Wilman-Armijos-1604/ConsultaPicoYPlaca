@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  appbackend:
+    container_name: appbackend
+    build:
+      context: ./consultapicoyplaca-backend
+      dockerfile: Dockerfile
+    environment:
+      - ENABLE_CORS=true
+      - ACCEPT_EULA=Y
+    networks:
+      - app_network
+    ports:
+      - 9000:8080
+
+  appfrontend:
+    container_name: appfrontend
+    build:
+      context: ./consultapicoyplaca-frontend
+      dockerfile: Dockerfile
+    environment:
+      - ENABLE_CORS=true
+      - ACCEPT_EULA=Y
+    networks:
+      - app_network
+    ports:
+    - 8080:80
+    - 8081:8080
+    depends_on:
+      - appbackend
+
+networks:
+  app_network:
+    driver: bridge

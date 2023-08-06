@@ -8,12 +8,14 @@ import { VehicleDateTimeDto } from '../dto-models/vehicledatetime.dtomodel';
 })
 export class AbleCheckVehicleDateTimeService {
 
-  private API_URL:string = "http://localhost:8080/VehicleDateTimeCheck";
+  // API URL for consuming SpringBoot Backend
+  private API_URL: string = "http://localhost:9000/VehicleDateTimeCheck";
 
   constructor(private http: HttpClient) {
 
   }
 
+  // POST calling
   POSTableCheckVehicleTime(vehicleDateTimeDto: VehicleDateTimeDto): Observable<any> {
     return this.http.post(this.API_URL, vehicleDateTimeDto);
   }

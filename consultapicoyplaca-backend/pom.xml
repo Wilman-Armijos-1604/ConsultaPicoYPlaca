@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.advlatam</groupId>
 	<artifactId>consultapicoyplaca-backend</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>Release-1.0.0</version>
 	<name>consultapicoyplaca-backend</name>
 	<description>Backend - Aplicación Web - Consulta Pico y Placa</description>
 	<properties>

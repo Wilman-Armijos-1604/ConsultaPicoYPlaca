@@ -1,0 +1,47 @@
+@mixin common-margin {
+    margin: 2em;
+}
+
+@mixin textStyle {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+@mixin common-text-align {
+    text-align: center;
+}
+
+@mixin centered {
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    width: 100%;
+    margin: 0;
+    border: 0;
+
+    @include centered;
+
+    background-color: darkgrey;
+    padding-top: 1rem;
+    padding-bottom: 0.3rem;
+
+    h1 {
+        @include textStyle;
+        font-size: 2rem;
+        color: white;
+    }
+}
+
+.body {
+    @include common-margin;
+    @include centered;
+    
+    width: 80%;
+}
+
+.bottom {
+    @include common-margin;
+    @include common-text-align;
+}

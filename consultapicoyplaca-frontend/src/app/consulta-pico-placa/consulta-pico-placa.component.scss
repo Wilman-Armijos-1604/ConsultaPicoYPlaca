@@ -1,3 +1,5 @@
+// Common styles
+
 @mixin centered {
     display: flex;
     justify-content: center;
@@ -27,6 +29,8 @@
     color: red;
 }
 
+// Header styles
+
 .title {
 
     width: 100%;
@@ -45,6 +49,8 @@
         color: white;
     }
 }
+
+// Body styles
 
 .description {
 
@@ -80,8 +86,24 @@
     background-color: antiquewhite
 }
 
-.row {
-    @include centered;
+// Inner body redistribution on display
+@media only screen and (max-width: 800px) {
+    .row {
+        @include centered-inline;
+
+        &.modal {
+            @include centered;
+        }
+    }    
+}
+@media only screen and (min-width: 801px) {
+    .row {
+        @include centered;
+    }
+}
+
+.rowPage {
+    display: flex;
 }
 
 .innerBody {
@@ -133,8 +155,37 @@
     }
 }
 
+// Footer map styles
+
 .map-label {
     @include textStyle;
     font-size: 1.25rem;
     margin-top: 1rem;
+}
+
+// Modal styles
+
+.modal-custom {
+    &.header {
+        height: 2rem;
+    }
+    &.left-data {
+        width: 40%;
+    }
+    &.right-date {
+        width: 60%;
+    }
+}
+
+.modal-media {
+    @include centered-inline;
+
+    p {
+        margin: 0;
+        text-align: center;
+
+        &.SiNo {
+            font-size: 2rem;
+        }
+    }
 }

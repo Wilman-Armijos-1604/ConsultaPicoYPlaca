@@ -15,6 +15,7 @@ import java.util.Map;
  */
 public class VehicleDateTimeRestrictionsTable {
     
+    // Day restriction based on last digit of license plate
     public static final Map<Character, DayOfWeek> NUMBER_DATE_RESTRICTION = Map.of(
             '0', DayOfWeek.MONDAY,
             '1', DayOfWeek.MONDAY,
@@ -28,6 +29,7 @@ public class VehicleDateTimeRestrictionsTable {
             '9', DayOfWeek.FRIDAY
     );
     
+    // Hour restrictions in both day and night intervals
     public static final LocalTime DAY_RESTRICTION_START = LocalTime.of(6, 0);
     public static final LocalTime DAY_RESTRICTION_END = LocalTime.of(9, 30);
     public static final LocalTime NIGHT_RESTRICTION_START = LocalTime.of(16, 0);

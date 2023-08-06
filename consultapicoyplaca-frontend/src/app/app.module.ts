@@ -1,16 +1,20 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
-
-import { AppRoutingModule } from './app-routing.module';
-import { ConsultaPicoPlacaComponent } from './consulta-pico-placa/consulta-pico-placa.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AppRoutingModule } from './app-routing.module';
+
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { AppComponent } from './app.component';
+import { ConsultaPicoPlacaComponent } from './consulta-pico-placa/consulta-pico-placa.component';
+import { ErrorComponent } from './error/error.component';
 
 @NgModule({
   declarations: [
-    ConsultaPicoPlacaComponent
+    AppComponent,
+    ConsultaPicoPlacaComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -21,6 +25,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule
   ],
   providers: [],
-  bootstrap: [ConsultaPicoPlacaComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
